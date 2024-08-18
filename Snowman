@@ -1,0 +1,93 @@
+class Snowman {
+  int x, y;
+  boolean hat;
+  boolean buckle;
+  boolean eyes;
+  boolean mouth;
+  boolean buttons;
+  boolean scarf;
+
+  Snowman(int tempX, int tempY) {
+    x = tempX;
+    y = tempY;
+    hat = false;
+    buckle = false;
+    eyes = false;
+    mouth = false;
+    buttons = false;
+    scarf = false;
+  }
+
+  void display() {
+    fill(255);
+    ellipse(x, y + 225, 150, 150);
+    ellipse(x, y + 100, 120, 120);
+    ellipse(x, y, 90, 90);
+    if (eyes) {
+      fill(0);
+      ellipse(x - 20, y - 15, 10, 10);
+      ellipse(x + 20, y - 15, 10, 10);
+    } // eyes
+    if (mouth) {
+      noFill();
+      stroke(0);
+      arc(x, y + 20, 30, 20, 0, PI);
+    } // mouth
+    if (buttons) {
+      fill(0);
+      ellipse(x, y + 100, 10, 10);
+      ellipse(x, y + 150, 10, 10);
+      ellipse(x, y + 200, 10, 10);
+    } // buttons
+    if (hat) {
+      fill(0);
+      rect(x - 40, y - 65, 80, 20);
+      rect(x - 25, y - 145, 50, 80);
+    } // hat
+    if (scarf) {
+      fill(#FA0000);
+      ellipse(x, y + 40, 100, 10);
+      ellipse(x + 40, y + 80, 10, 100);
+    } // scarf
+    if (buckle) {
+      fill(#FA0000);
+      rect(x - 40, y - 60, 80, 10);
+      fill(#EDCA02);
+      rect(x - 20, y - 60, 40, 10);
+    } // buckle
+  } // end of display
+
+  void check(int tempD1, int tempD2) {
+    if (tempD1 == tempD2) {
+      if (tempD1 == 1) {
+        hat = true;
+      } // end of rolled 1s
+      if (tempD1 == 2) {
+        buckle = true;
+      } // end of rolled 2s
+      if (tempD1 == 3) {
+        eyes = true;
+      } // end of rolled 3s
+      if (tempD1 == 4) {
+        mouth = true;
+      } // end of rolled 4s
+      if (tempD1 == 5) {
+        buttons = true;
+      } // end of rolled 5s
+      if (tempD1 == 6) {
+        scarf = true;
+      } // end of rolled 6s
+    } // end of doubles check
+  } // end of check dice
+   boolean isGameOver() {
+     println("inside game over");
+    return hat && buckle && eyes && mouth && buttons && scarf;
+  }
+
+  boolean isWin() {
+    println("inside win");
+    return hat && buckle && eyes && mouth && buttons && scarf;
+  }
+
+ 
+} // end of Snowman class
