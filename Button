@@ -1,0 +1,31 @@
+class Button {
+  float x;
+  float y;
+  float w;
+  float h;
+  boolean click;
+
+  Button(float tempX, float tempY, float tempW, float tempH) {
+    x = tempX;
+    y = tempY;
+    w = tempW;
+    h = tempH;
+    click = false;
+  }
+
+  void click(int mx, int my) {
+    if (mx > x && mx < x + w && my > y && my < y + h) {
+      click = !click;
+    }
+  }
+
+  void display() {
+    stroke(0);
+    if (click) {
+      fill(255, 0, 0); // red
+    } else {
+      fill(0, 255, 0); // green
+    }
+    rect(x, y, w, h);
+  }
+}
