@@ -1,0 +1,166 @@
+//THIS is my Winter game
+//Rishi Divvela,pd1
+
+Snow[] mySnow = new Snow[1000];
+Confetti[] myConfetti = new Confetti[1000];
+Button myButton;
+Button myButton1;
+Button myButton2;
+Snowman mySnowman1;
+Dice diceP1;
+Snowman mySnowman2;
+Dice diceP2;
+int scene = 0;
+boolean click = false;
+
+void setup(){
+  size(800, 800);
+  for (int i = 0; i < mySnow.length; i++){
+    mySnow[i] = new Snow(); 
+  }
+  for (int i = 0; i < myConfetti.length; i++){
+    myConfetti[i] = new Confetti(); 
+  }
+  myButton = new Button(width / 2 - 100, height / 2 + 100, 200, 200); 
+  myButton1 = new Button(width / 2 - 100, height / 2 + 100, 200, 200); 
+  myButton2 = new Button(width / 2 - 100, height / 2 +200, 200, 200); 
+  mySnowman1 = new Snowman(200, 500);
+  diceP1 = new Dice();
+  mySnowman2 = new Snowman(600, 500);
+  diceP2 = new Dice();
+  
+}
+
+void draw(){
+  background(#4DE8E4);//light blue
+  
+
+  for (int i = 0; i < mySnow.length; i++){
+    mySnow[i].display();
+    mySnow[i].move();
+
+  }
+
+  if (scene == 0){
+    fill(0);
+    textSize(64);
+    text("Welcome to The Snowman Game!", width / 2 - 200, height / 2 - 100, 500, 500);
+
+    myButton.display();
+
+    if (myButton.click && !click){
+      scene = 1;
+      click = true; 
+    }
+  } else if (scene == 1){
+    fill(0);
+    textSize(16);
+    text("Rules:Press UP ARROW for Player 1 to roll the dice Press DOWN ARROW for Player 2 to roll the dice.For a player to win,they must complete all parts of the snowman:scarf,eyes,buttons,hat,buckle,mouth.Press the button to have a background",width/2-200,height/2-300,500,500);
+    myButton1.display();
+    fill(0);
+    textSize(32);
+    text("TO GAME",width / 2 - 60, height / 2 + 175, 200, 200);
+  }
+  
+  if(myButton1.click){
+   scene = 2;
+   click=true;
+   
+ }if (scene == 2) {
+  
+  myButton2.display();
+  
+  
+  
+  if(myButton2.click){  
+  fill(245, 222, 179);//brown
+  rect(150, 300, 500, 400, 10); 
+  fill(139, 69, 19);
+  triangle(150, 300, 400, 200, 650, 300); 
+  fill(245, 222, 179);//brown
+  rect(200, 350, 100, 100, 5); 
+  rect(500, 350, 100, 100, 5); 
+  fill(139, 69, 19);//beige
+  rect(350, 450, 100, 200, 10); 
+  stroke(139, 69, 19);
+  strokeWeight(2);
+  line(200, 390, 300, 390); 
+  line(500, 390, 600, 390); 
+  line(375, 475, 375, 650); 
+  fill(85, 139, 87);
+  rect(0, 700, 800, 100); 
+  fill(220, 220, 220);
+  click=true;
+ }
+ mySnowman1.display();
+ mySnowman2.display();
+ diceP1.display(mySnowman1.x);
+ diceP2.display(mySnowman2.x);
+  
+   if (mySnowman1.isGameOver() || mySnowman2.isGameOver()) {
+      displayEndScreen();
+    }
+
+    
+    if (mySnowman1.isWin()) {
+      scene = 3; 
+    } else if (mySnowman2.isWin()) {
+      scene = 4; 
+    }
+  
+  if (keyPressed && key == CODED) {
+    if (keyCode == DOWN) {
+      int temp1 = diceP1.roll1();
+      int temp2 = diceP1.roll2();
+      mySnowman1.check(temp1, temp2);
+    } else if (keyCode == UP) {
+      int temp3 = diceP2.roll1();
+      int temp4 = diceP2.roll2();
+      mySnowman2.check(temp3, temp4);
+    }
+    for(int i=0; i<10000;i++){
+      println("wait");
+    }//end of counter loop
+    
+  }//end of key coded
+}  else if (scene == 3) {
+    fill(0);
+    textSize(64);
+    text("Player 1 Wins!", width / 2 - 200, height / 2, 500, 500);
+  } else if (scene == 4) {
+    fill(0);
+    textSize(64);
+    text("Player 2 Wins!", width / 2 - 200, height / 2, 500, 500);
+  }
+}
+void displayEndScreen() {
+  fill(0);
+  textSize(64);
+  if (mySnowman1.isGameOver()) {
+    text("Player 1 Wins!", width / 2 - 200, height / 2, 500, 500);
+    for (int i = 0; i < mySnow.length; i++){
+      println("inside for loop");
+      myConfetti[i].display();
+      myConfetti[i].move();
+    }
+  } else {
+    text("Player 2 Wins!", width / 2 - 200, height / 2, 500, 500);
+    for (int i = 0; i < mySnow.length; i++){
+      println("indisde for loop");
+      myConfetti[i].display();
+      myConfetti[i].move();
+    }
+  }
+}
+
+void mousePressed() {
+  if (scene == 0) {
+    myButton.click(mouseX, mouseY);
+  } else if (scene == 1) {
+    myButton1.click(mouseX, mouseY);
+    
+  }else if (scene == 2) {
+    myButton2.click(mouseX, mouseY);
+    
+  }
+}
