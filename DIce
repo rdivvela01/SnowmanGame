@@ -1,0 +1,26 @@
+class Dice{
+  int d1;  
+  int d2;  
+  
+  Dice(){
+    d1 = int(random(1, 7));
+    d2 = int(random(1,7));
+  }
+  
+  void display(int x){
+    textSize(20);
+    fill(0);
+    text(d1+", "+d2, x+100, 350);
+  }
+  
+  int roll1(){
+    d1 = int(random(1, 7));
+    return d1;
+  }
+  
+  int roll2(){
+    d2 = int(random(1,7));
+    return d2;
+  }
+  
+}//end of dice class
